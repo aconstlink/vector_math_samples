@@ -37,6 +37,8 @@ namespace this_file
 
         natus::application::util::app_essentials_t _ae ;
 
+        natus::math::vec2f_t _mp ;
+
     private:        
 
     public:
@@ -44,7 +46,7 @@ namespace this_file
         test_app( void_t ) noexcept
         {
             natus::application::app::window_info_t wi ;
-            #if 1
+            #if 0
             auto view1 = this_t::create_window( "A Render Window Default", wi ) ;
             auto view2 = this_t::create_window( "A Render Window Additional", wi,
                 { natus::graphics::backend_type::gl4, natus::graphics::backend_type::d3d11}) ;
@@ -107,6 +109,7 @@ namespace this_file
 
                 if( mouse.is_pressing( natus::device::layouts::three_mouse::button::left ) )
                 {
+                    _mp = _ae.get_cur_mouse_pos() ;
                 }
             }
 
@@ -137,6 +140,7 @@ namespace this_file
             return natus::application::result::ok ; 
         }
 
+
         //***************************************************************************************************************
         virtual natus::application::result on_graphics( natus::application::app_t::render_data_in_t rd ) noexcept 
         {
@@ -144,12 +148,31 @@ namespace this_file
 
             auto pr = _ae.get_prim_render() ;
 
-            
+            natus::math::vec2f_t const e_x = _mp ;
+            natus::math::vec2f_t const e_y = e_x.yx() * natus::math::vec2f_t( -1.0f, 1.0f ) ;
+
+
+            // draw e_x
+            {
+                natus::math::vec2f_t const p0 = natus::math::vec2f_t( 0.0f ) ;
+                natus::math::vec2f_t const p1 = e_x ;
+
+                pr->draw_line( 0, p0, p1, natus::math::vec4f_t(1.0f,0.0f,0.0f,1.0f) ) ;
+            }
+
+            // draw e_y
+            {
+                natus::math::vec2f_t const p0 = natus::math::vec2f_t( 0.0f ) ;
+                natus::math::vec2f_t const p1 = e_y ;
+
+                pr->draw_line( 0, p0, p1, natus::math::vec4f_t(0.0f,1.0f,0.0f,1.0f) ) ;
+            }
 
             _ae.on_graphics_end( 100 ) ;
 
             return natus::application::result::ok ; 
         }
+
 
         virtual natus::application::result on_tool( natus::application::app::tool_data_ref_t td ) noexcept
         {
@@ -157,7 +180,7 @@ namespace this_file
 
             ImGui::Begin( "Control" ) ;
             {
-               
+               ImGui::Text( "Mouse Pos: [%.3f, %.3f]", _mp.x(), _mp.y() ) ;
             }
             ImGui::End() ;
 
