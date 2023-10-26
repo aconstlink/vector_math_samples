@@ -16,7 +16,8 @@ natus_emacs_default_directory( "${CMAKE_CURRENT_LIST_DIR}/natus" )
 #set( CMAKE_CXX_STANDARD 17 )
 
 set( subdirs
-    "05_orthogonalization"
+    "vector_05_orthogonalization"
+    "collision_01_point_circle"
     )
 
 foreach( _subdir ${subdirs} )
