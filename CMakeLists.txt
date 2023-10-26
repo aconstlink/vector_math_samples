@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 3.6 )
-project( "vector_math_samples" )
+project( "video_samples" )
 
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build )
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build )
@@ -17,7 +17,7 @@ natus_emacs_default_directory( "${CMAKE_CURRENT_LIST_DIR}/natus" )
 
 set( subdirs
     "vector_05_orthogonalization"
-    "collision_01_point_circle"
+    "collision_primitives"
     )
 
 foreach( _subdir ${subdirs} )
